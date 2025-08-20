@@ -1,0 +1,69 @@
+Prompt:1
+
+Act as an expert Python software developer specializing in automotive systems. Generate a clean, modular, multi-file console-based Python project with the following structure:
+· diagnostic.py ? Defines a Diagnostic class (id, type, value). Types = "RPM", "EngineLoad", "CoolantTemp".
+· car.py ? Holds diagnostics, computes performance score.
+· garage_monitor.py ? Manages multiple cars, checks for driver abuse & engine issues.
+· main.py ? Loads diagnostic data from CSV and prints car status.
+Requirements:
+->CSV Input:
+*Format: (car_id,type,value), example:
+-> Car1,RPM,6500
+-> Car1,CoolantTemp,120
+-> Car2,EngineLoad,95
+
+*Handle duplicate diagnostics for a car by keeping the latest value for a given type.
+*Validate input: reject malformed lines (e.g., missing fields, invalid types, non-numeric values).
+
+->compute the Performance Score:
+Formula: score = 100 - (rpm/100 + engineLoad0.5 + (coolantTemp-90)*2)
+*If any diagnostic (RPM, EngineLoad, CoolantTemp) is missing, mark the score as invalid.
+?Print alerts:
+?score < 40 ? “Severe Engine Stress”
+?Missing diagnostic ? “Sensor Failure Detected”
+
+
+Prompt:2
+The current code is procedural and messy, lacking structure and best practices.
+ Act as a Python software developer performing code review and refactoring on messy AI-generated code and analyze, review, and refactor it into a clean, maintainable, object-oriented design.
+#file:reviewcode.py 
+and also inlcude and refine the code using the below requirements
+Refactor into OOP design:
+?class Diagnostic: …
+?class Car: …
+?class GarageMonitor: …
+?Use encapsulation, constructors, constants for thresholds.
+?Add CSV parsing using Python’s csv module.
+?Implement error handling for empty/malformed CSV.
+Prompt: 3
+Act as a Python software developer specializing in testing and quality assurance. Write unit tests and integration tests for the Automotive Diagnostics project using unittest (built-in) 
+
+Testing Requirements
+Unit Tests (Car & Diagnostics)
+?Car with rpm=6500, load=95, temp=120 ? score < 40 ? Severe Engine Stress.
+?Car missing CoolantTemp ? Sensor Failure Detected.
+?Garage with cars [score=70, score=30] ? average = 50.
+?Boundary: exactly score=40 ? no alert.
+?Empty CSV ? must raise Exception.
+
+Prompt:4
+Act as a technical writer and Python software developer. Write clear and beginner-friendly documentation for the Automotive Diagnostics project in a README.md file.
+Create a README.md with the following sections:
+Introduction
+?Briefly explain what the Automotive Diagnostics project does.
+?Mention its purpose (teaching modular Python/OOP with an automotive case study).
+?Highlight key features (CSV parsing, performance scoring, alerts, error handling).
+
+Explanation of Classes & Functions
+?Diagnostic ? stores diagnostic data (id, type, value).
+?Car ? holds diagnostics, computes performance score.
+?GarageMonitor ? manages multiple cars, checks driver abuse & engine issues.
+?main.py ? entry point: loads CSV, processes cars, prints tabular output.
+?Mention important functions/methods and their roles
+
+Prompt 5
+Act as a Python software developer specializing in concurrency and performance optimization. Extend the Automotive Diagnostics project to support real-time diagnostic updates using Python’s threading module.
+
+??threading module ? simulate real-time diagnostic updates (RPM, temperature, load).
+??Lock (from threading) ? to prevent race conditions when aggregating scores in GarageMonitor.
+??Compare single-thread vs multi-thread execution performance.
